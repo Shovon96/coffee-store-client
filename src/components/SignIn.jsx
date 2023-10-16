@@ -3,7 +3,7 @@ import { AuthContext } from "../authProvider/AuthProvider";
 
 const SignIn = () => {
 
-    const {signInUser} = useContext(AuthContext)
+    const { signInUser } = useContext(AuthContext)
 
     const handleSignIn = e => {
         e.preventDefault();
@@ -13,25 +13,25 @@ const SignIn = () => {
         console.log(email, password);
 
         signInUser(email, password)
-        .then(result => {
-            console.log(result.user);
-            const user = {
-                email,
-                lastLoggedAt: result.user?.metadata?.lastSignInTime
-            }
-            // update last logged at in the database
-            fetch('https://coffee-store-server-ed7obws83-coddings-projects.vercel.app/user', {
-                method: 'PATCH',
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify(user)
-            })
-            .then(res => res.json())
-            .then(data => console.log(data))
+            .then(result => {
+                console.log(result.user);
+                const user = {
+                    email,
+                    lastLoggedAt: result.user?.metadata?.lastSignInTime
+                }
+                // update last logged at in the database
+                fetch('https://coffee-store-server-4gdnqwwux-coddings-projects.vercel.app/user', {
+                    method: 'PATCH',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
 
-        })
-        .catch(error => {
-            console.log(error);
-        })
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     return (
